@@ -1,5 +1,6 @@
 
 import java.security.MessageDigest;
+import java.util.Objects;
 
 class DNode {
 // Node for building a Doubly-linked list
@@ -23,7 +24,15 @@ class DNode {
 		// returns the address of key if it occurs in the portion of the list
 		// beginning at curr and ending at the last node. Returns null if key does not occur in that portion,
 		// or if DNode is null.
-		return null;		
+		DNode result = curr;
+		while (result != null) {
+			if (!result.contents.equals(key)) {
+			    result = result.next;
+            } else {
+			    return result;
+            }
+		}
+		return result;
 	}
 	
 	DNode searchBackwards(DNode curr, String key) { //TODO

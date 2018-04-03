@@ -1,8 +1,8 @@
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
+
+import static org.junit.Assert.*;
 
 // These tests illustrate some basic properties of the methods you have been asked
 // to implement. They are not exhaustive.
@@ -30,6 +30,13 @@ public class AssignmentTests {
 		target = head.searchForwards(list.get(3), "f");
 		assertSame(target, list.get(5));  
 		assertSame(target.next, null);
+
+		target = head.searchForwards(list.get(4), "e");
+		assertSame(target, list.get(4));
+		assertSame(target.next, list.get(5));
+
+		target = head.searchForwards(list.get(3), "c");
+		assertNotSame(target, list.get(4));
 	}
 
 	
