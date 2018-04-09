@@ -145,6 +145,10 @@ public class AssignmentTests {
         }
     }
 
+    private void print(String temp) {
+        System.out.print(temp + " ");
+    }
+
     @Test
 	public void testInsertBefore() {
 		

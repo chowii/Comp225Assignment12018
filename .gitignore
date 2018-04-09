@@ -14,10 +14,7 @@
 
 # Ide
 .idea/
-.project
-.classpath
 .settings
-*.iml
 
 # Package Files #
 *.jar
