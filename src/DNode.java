@@ -1,5 +1,6 @@
 
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.Objects;
 
 class DNode {
@@ -54,9 +55,14 @@ class DNode {
 	void insertAfter(DNode curr, DNode newNode) { //TODO
 		// Pre: curr and newNode are addresses for DNodes
 		// Post: newNode is inserted between curr and its next neighbour, i.e.
-		// let N be newNode's next neighbour, then: curr.next points to newNode, newNode.next points to N
+		// let N be newNode's next neighbour,
+        // then: curr.next points to newNode, newNode.next points to N
 		// N.prev points to newNode and newNode.prev points to curr.
 		// If curr has no next neighbour, then newNode is inserted as the last node after curr.
+        newNode.next = curr.next;
+        newNode.prev = curr;
+        if (curr.next != null) curr.next.prev = newNode;
+        curr.next = newNode;
 	}
 	
 	void insertBefore(DNode curr, DNode newNode) { //TODO
@@ -65,7 +71,19 @@ class DNode {
 		// let P be newNode's previous neighbour, then: P.next points to newNode, newNode.next points to curr
 		// curr.prev points to newNode and newNode.next points to curr.
 		// If curr has no previous neighbour, then newNode is inserted as the first node before curr.
+        newNode.prev.next = curr.next;
+        curr.next = newNode;
+        newNode.prev = curr;
 	}
+
+	public static ArrayList<String> toList(DNode head) {
+	    ArrayList<String> list = new ArrayList<>();
+	    while (head != null) {
+	        list.add(head.contents);
+	        head = head.next;
+        }
+        return list;
+    }
 	
 }
 
