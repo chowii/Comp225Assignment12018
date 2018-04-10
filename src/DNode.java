@@ -71,9 +71,10 @@ class DNode {
 		// let P be newNode's previous neighbour, then: P.next points to newNode, newNode.next points to curr
 		// curr.prev points to newNode and newNode.next points to curr.
 		// If curr has no previous neighbour, then newNode is inserted as the first node before curr.
-        newNode.prev.next = curr.next;
-        curr.next = newNode;
-        newNode.prev = curr;
+        newNode.prev = curr.prev;
+        newNode.next = curr;
+        if(curr.prev != null) curr.prev.next = newNode;
+        curr.prev = newNode;
 	}
 
 	public static ArrayList<String> toList(DNode head) {

@@ -175,7 +175,61 @@ public class AssignmentTests {
 			temp = temp.prev;
 		}
 	}
-	
+
+    @Test
+	public void testInsertBeforeAtStart() {
+
+		String[] items = {"a","b","c","d","e","f"};
+		ArrayList<DNode> list = createList(items);
+
+		String[] testArray = {"z","a","b","c","d","e","f"};
+
+		DNode head = list.get(0);
+		DNode curr = list.get(0);
+		DNode newNode = new DNode("z");
+
+		head.insertBefore(curr, newNode);
+
+		DNode temp = head;
+		for (int i = 0; i < testArray.length-1; i++){
+			assertEquals(testArray[i], temp.contents);
+			temp = temp.next;
+		}
+		assertEquals(testArray[testArray.length-1], temp.contents);
+
+		for (int i = testArray.length-1; i >= 0; i--){
+			assertEquals(testArray[i], temp.contents);
+			temp = temp.prev;
+		}
+	}
+
+    @Test
+    public void testInsertBeforeAtEnd() {
+
+        String[] items = {"a","b","c","d","e","f"};
+        ArrayList<DNode> list = createList(items);
+
+        String[] testArray = {"a","b","c","d","e","z","f"};
+
+        DNode head = list.get(0);
+        DNode curr = list.get(items.length - 1);
+        DNode newNode = new DNode("z");
+
+        head.insertBefore(curr, newNode);
+
+        DNode temp = head;
+        for (int i = 0; i < testArray.length-1; i++){
+            assertEquals(testArray[i], temp.contents);
+            temp = temp.next;
+        }
+        assertEquals(testArray[testArray.length-1], temp.contents);
+
+        for (int i = testArray.length-1; i >= 0; i--){
+            assertEquals(testArray[i], temp.contents);
+            temp = temp.prev;
+        }
+    }
+
 	
 	// The following tests concern the class DLSList
 	
