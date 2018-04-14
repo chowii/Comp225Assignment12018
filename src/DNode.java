@@ -106,6 +106,33 @@ class DLSList {
 	void addNewNode(DNode newNode) { //TODO
 		// Post: newNode is inserted into the current list in correct sorted order
 		// numNodes is adjusted to be equal to the number of nodes in the list
+
+		if (head == null) {
+			head = newNode;
+		} else if (head.contents.compareTo(newNode.contents) >= 0) {
+			newNode.next = head;
+			newNode.next.prev = newNode;
+			head = newNode;
+		} else {
+
+			DNode traverse = head;
+			traverse = locateNodeToInsertAfter(newNode, traverse);
+
+			if (traverse.next != null) {
+				newNode.next.prev = newNode;
+			}
+			traverse.next = newNode;
+			newNode.prev = traverse;
+		}
+		numNodes += 1;
+	}
+
+	public DNode locateNodeToInsertAfter(DNode newNode, DNode traverse) {
+		while (traverse.next != null && traverse.next.contents.compareTo(newNode.contents) < 0) {
+			traverse = traverse.next;
+			newNode.next = traverse.next;
+		}
+		return traverse;
 	}
 	
 	void removeNode(String key) { //TODO
