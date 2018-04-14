@@ -115,18 +115,28 @@ class DLSList {
         DNode traverse = head;
         while (traverse != null) {
             if (traverse.contents.equals(key)) {
-                if (traverse.prev != null)
-                    traverse.prev.next = traverse.next;
-                else
-                    head = traverse.next;
-                if (traverse.next != null)
-                    traverse.next.prev = traverse.prev;
-                numNodes -= 1;
+				removeProvidedNode(traverse);
+				updateLastVisitAndCount(traverse);
             }
             traverse = traverse.next;
         }
 	}
-	
+
+	private void removeProvidedNode(DNode traverse) {
+		if (traverse.prev != null)
+			traverse.prev.next = traverse.next;
+		else
+			head = traverse.next;
+		if (traverse.next != null)
+			traverse.next.prev = traverse.prev;
+	}
+
+	private void updateLastVisitAndCount(DNode traverse) {
+		if (traverse.contents.equals(lastVisited.contents))
+			lastVisited = head;
+		numNodes -= 1;
+	}
+
 	DNode visit(String key) { //TODO
 		// Post: Returns the address of the first node (in ascending order) whose contents equal key, and null if there is no such node;
 		// lastVisited is set to the address returned if it is not null, otherwise lastVisited remains unchanged
