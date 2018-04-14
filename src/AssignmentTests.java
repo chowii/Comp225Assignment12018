@@ -279,31 +279,30 @@ public class AssignmentTests {
 		}
 		assertEquals(testArray3.length, testList.numNodes);	
 	}
-	
-	@Test
-	public void testRemoveNode() {
-		String[] items = {"a","b","c","d"};
-		ArrayList<DNode> list = createList(items);
-		DNode head = list.get(0);
 
-		DLSList testList= new DLSList();
-		testList.head= head;
-		testList.numNodes= items.length;
-		testList.lastVisited= testList.head; // Initialise testList to satisfy the class invariant
-		
-		// now prepare and add a node
-		DNode nodeToAdd= new DNode("d"); 
-		testList.addNewNode(nodeToAdd);
-		
-		String testArray1[]= {"b", "c", "d"};
+    @Test
+    public void testRemoveNode() {
+        String[] items = {"a","b","c","d"};
+        ArrayList<DNode> list = createList(items);
+        DNode head = list.get(0);
 
-		DNode temp= testList.head;
-		for(int i=0; i< testArray1.length; i++){ // Checks the order of nodes starting from the first node
-			assertEquals(testArray1[i], temp.contents);
-			temp=temp.next;
-		}
-		assertEquals(testArray1.length, testList.numNodes);	
-	}
+        DLSList testList= new DLSList();
+        testList.head= head;
+        testList.numNodes= items.length;
+        testList.lastVisited= testList.head; // Initialise testList to satisfy the class invariant
+
+        // now remove a node
+        testList.removeNode("a");
+
+        String testArray1[]= {"b", "c", "d"};
+
+        DNode temp= testList.head;
+        for(int i=0; i< testArray1.length; i++){ // Checks the order of nodes starting from the first node
+            assertEquals(testArray1[i], temp.contents);
+            temp=temp.next;
+        }
+        assertEquals(testArray1.length, testList.numNodes);
+    }
 	
 	@Test
 	public void testVisit() {

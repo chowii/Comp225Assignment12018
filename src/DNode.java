@@ -112,6 +112,19 @@ class DLSList {
 		// Post: All occurrences of nodes with contents field equal to key are removed.
 		// If lastVisited points to one of the removed nodes, then lastVisited is set to head
 		// numNodes is adjusted to be equal to the number of nodes in the list
+        DNode traverse = head;
+        while (traverse != null) {
+            if (traverse.contents.equals(key)) {
+                if (traverse.prev != null)
+                    traverse.prev.next = traverse.next;
+                else
+                    head = traverse.next;
+                if (traverse.next != null)
+                    traverse.next.prev = traverse.prev;
+                numNodes -= 1;
+            }
+            traverse = traverse.next;
+        }
 	}
 	
 	DNode visit(String key) { //TODO
