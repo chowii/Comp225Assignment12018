@@ -57,10 +57,59 @@ public class AssignmentTests {
 		assertSame(target, list.get(0));
 		assertSame(target.prev,null);
 
-		target = head.searchBackwards(curr, "b");
-		assertSame(target, list.get(1));
-		assertSame(target.prev,list.get(0));
-		
+        target = head.searchBackwards(curr, "b");
+        assertSame(target, list.get(1));
+        assertSame(target.prev, list.get(0));
+        assertSame(target.next, list.get(2));
+
+	}
+
+	@Test
+	public void testSearchBackwardsWhenCurrentIsFirst() {
+
+        String[] items = {"a", "b", "c", "d", "e", "f"};
+        ArrayList<DNode> list = createList(items);
+
+        DNode head = list.get(0);
+        DNode curr = list.get(0);
+        DNode target = null;
+
+        target = head.searchBackwards(curr, "f");
+        assertNull(target);
+
+        target = head.searchBackwards(curr, "a");
+        assertSame(target, list.get(0));
+        assertSame(target.prev, null);
+        assertSame(target.next, list.get(1));
+
+        target = head.searchBackwards(curr, "b");
+        assertSame(target, null);
+
+	}
+
+	@Test
+	public void testSearchBackwardsWhenCurrentIsLast() {
+
+        String[] items = {"a", "b", "c", "d", "e", "f"};
+        ArrayList<DNode> list = createList(items);
+
+        DNode head = list.get(0);
+        DNode curr = list.get(items.length - 1);
+        DNode target = null;
+
+        target = head.searchBackwards(curr, "f");
+        assertSame(target, list.get(list.size() - 1));
+
+        target = head.searchBackwards(curr, "a");
+        assertSame(target, list.get(0));
+        assertSame(target.prev, null);
+        assertSame(target.next, list.get(1));
+
+        target = head.searchBackwards(curr, "b");
+        assertSame(target, list.get(1));
+		assertSame(target.prev, list.get(0));
+		assertSame(target.next, list.get(2));
+
 	}
 	
 	@Test
