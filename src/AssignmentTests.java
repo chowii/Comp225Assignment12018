@@ -88,6 +88,29 @@ public class AssignmentTests {
 	}
 
 	@Test
+	public void testSearchBackwardsWhenSearchKeyIsNull() {
+
+        String[] items = {"a", "b", "c", "d", "e", "f"};
+        ArrayList<DNode> list = createList(items);
+
+        DNode head = list.get(0);
+        DNode curr = list.get(0);
+        DNode target = null;
+
+        target = head.searchBackwards(curr, null);
+        assertNull(target);
+
+        target = head.searchBackwards(curr, "a");
+        assertSame(target, list.get(0));
+        assertSame(target.prev, null);
+        assertSame(target.next, list.get(1));
+
+        target = head.searchBackwards(curr, "b");
+        assertSame(target, null);
+
+	}
+
+	@Test
 	public void testSearchBackwardsWhenCurrentIsLast() {
 
         String[] items = {"a", "b", "c", "d", "e", "f"};
@@ -138,6 +161,59 @@ public class AssignmentTests {
 			temp = temp.prev;
 		}
 	}
+
+	@Test
+	public void testInsertAfterNull() {
+
+		String[] items = {"a","b","c","d","e","f"};
+		ArrayList<DNode> list = createList(items);
+
+		String[] testArray = {"a","b","c","d","e","f"};
+
+		DNode head = list.get(0);
+		DNode curr = list.get(1);
+
+		head.insertAfter(curr, null);
+
+		DNode temp = head;
+		for (int i = 0; i < testArray.length-1; i++){
+			assertEquals(testArray[i], temp.contents);
+			temp = temp.next;
+		}
+		assertEquals(testArray[testArray.length-1], temp.contents);
+
+		for (int i = testArray.length-1; i >= 0; i--){
+			assertEquals(testArray[i], temp.contents);
+			temp = temp.prev;
+		}
+	}
+
+	@Test
+	public void testInsertAfterNullContent() {
+
+		String[] items = {"a","b","c","d","e","f"};
+		ArrayList<DNode> list = createList(items);
+
+		String[] testArray = {"a","b","c","d","e","f"};
+
+		DNode head = list.get(0);
+		DNode curr = list.get(1);
+		DNode newNode = new DNode(null);
+
+		head.insertAfter(curr, newNode);
+
+		DNode temp = head;
+		for (int i = 0; i < testArray.length-1; i++){
+			assertEquals(testArray[i], temp.contents);
+			temp = temp.next;
+		}
+		assertEquals(testArray[testArray.length-1], temp.contents);
+
+		for (int i = testArray.length-1; i >= 0; i--){
+			assertEquals(testArray[i], temp.contents);
+			temp = temp.prev;
+		}
+	}
 	
 	@Test
     public void testInsertAfterAtStart() {
@@ -168,6 +244,61 @@ public class AssignmentTests {
     }
 
 	@Test
+    public void testInsertAfterAtStartNull() {
+
+        String[] items = {"a","b","c","d","e","f"};
+        ArrayList<DNode> list = createList(items);
+
+        String[] testArray = {"a","b","c","d","e","f"};
+
+        DNode head = list.get(0);
+        DNode curr = list.get(0);
+        DNode newNode = new DNode(null);
+
+        head.insertAfter(curr, newNode);
+
+        DNode temp = head;
+        for (int i = 0; i < testArray.length -1; i++) {
+            assertEquals(testArray[i], temp.contents);
+            temp = temp.next;
+        }
+        assertEquals(testArray[testArray.length-1], temp.contents);
+            System.out.println();
+
+        for (int i = testArray.length-1; i >= 0; i--){
+            assertEquals(testArray[i], temp.contents);
+            temp = temp.prev;
+        }
+    }
+
+	@Test
+    public void testInsertAfterAtStartNullContent() {
+
+        String[] items = {"a","b","c","d","e","f"};
+        ArrayList<DNode> list = createList(items);
+
+        String[] testArray = {"a","b","c","d","e","f"};
+
+        DNode head = list.get(0);
+        DNode curr = list.get(0);
+
+        head.insertAfter(curr, null);
+
+        DNode temp = head;
+        for (int i = 0; i < testArray.length -1; i++) {
+            assertEquals(testArray[i], temp.contents);
+            temp = temp.next;
+        }
+        assertEquals(testArray[testArray.length-1], temp.contents);
+            System.out.println();
+
+        for (int i = testArray.length-1; i >= 0; i--){
+            assertEquals(testArray[i], temp.contents);
+            temp = temp.prev;
+        }
+    }
+
+	@Test
     public void testInsertAfterAtEnd() {
 
         String[] items = {"a","b","c","d","e","f"};
@@ -178,6 +309,59 @@ public class AssignmentTests {
         DNode head = list.get(0);
         DNode curr = list.get(items.length - 1);
         DNode newNode = new DNode("z");
+
+        head.insertAfter(curr, newNode);
+
+        DNode temp = head;
+        for (int i = 0; i < testArray.length -1; i++) {
+            assertEquals(testArray[i], temp.contents);
+            temp = temp.next;
+        }
+        assertEquals(testArray[testArray.length-1], temp.contents);
+
+        for (int i = testArray.length-1; i >= 0; i--){
+            assertEquals(testArray[i], temp.contents);
+            temp = temp.prev;
+        }
+    }
+
+	@Test
+	public void testInsertAfterAtEndNull() {
+
+		String[] items = {"a","b","c","d","e","f"};
+		ArrayList<DNode> list = createList(items);
+
+		String[] testArray = {"a","b","c","d","e","f"};
+
+		DNode head = list.get(0);
+		DNode curr = list.get(items.length - 1);
+
+		head.insertAfter(curr, null);
+
+		DNode temp = head;
+		for (int i = 0; i < testArray.length -1; i++) {
+			assertEquals(testArray[i], temp.contents);
+			temp = temp.next;
+		}
+		assertEquals(testArray[testArray.length-1], temp.contents);
+
+		for (int i = testArray.length-1; i >= 0; i--){
+			assertEquals(testArray[i], temp.contents);
+			temp = temp.prev;
+		}
+	}
+
+	@Test
+    public void testInsertAfterAtEndNullContent() {
+
+        String[] items = {"a","b","c","d","e","f"};
+        ArrayList<DNode> list = createList(items);
+
+        String[] testArray = {"a","b","c","d","e","f"};
+
+        DNode head = list.get(0);
+        DNode curr = list.get(items.length - 1);
+        DNode newNode = new DNode(null);
 
         head.insertAfter(curr, newNode);
 
@@ -326,12 +510,46 @@ public class AssignmentTests {
 			assertEquals(testArray3[i], temp.contents);
 			temp=temp.next;
 		}
+
+		nodeToAdd= new DNode("aa");
+		testList.addNewNode(nodeToAdd);
+
+		String testArray4[]= {"aa", "a", "b", "c", "d", "e", "f" };
+		temp = testList.head;
+		for(int i=0; i< testArray3.length; i++){
+			assertEquals(testArray3[i], temp.contents);
+			temp=temp.next;
+		}
 		assertEquals(testArray3.length, testList.numNodes);
 	}
 
     @Test
     public void testRemoveNode() {
         String[] items = {"a","b","c","d"};
+        ArrayList<DNode> list = createList(items);
+        DNode head = list.get(0);
+
+        DLSList testList= new DLSList();
+        testList.head= head;
+        testList.numNodes= items.length;
+        testList.lastVisited= testList.head; // Initialise testList to satisfy the class invariant
+
+        // now remove a node
+        testList.removeNode("a");
+
+        String testArray1[]= {"b", "c", "d"};
+
+        DNode temp= testList.head;
+        for(int i=0; i< testArray1.length; i++){ // Checks the order of nodes starting from the first node
+            assertEquals(testArray1[i], temp.contents);
+            temp=temp.next;
+        }
+        assertEquals(testArray1.length, testList.numNodes);
+    }
+
+    @Test
+    public void testRemoveNodeMultiple() {
+        String[] items = {"a", "a","b","c","d"};
         ArrayList<DNode> list = createList(items);
         DNode head = list.get(0);
 
@@ -378,8 +596,56 @@ public class AssignmentTests {
     }
 
     @Test
+    public void testRemoveNodeMultipleAtMiddle() {
+        String[] items = {"a", "b", "c","c", "d"};
+        ArrayList<DNode> list = createList(items);
+        DNode head = list.get(0);
+
+        DLSList testList = new DLSList();
+        testList.head = head;
+        testList.numNodes = items.length;
+        testList.lastVisited = testList.head; // Initialise testList to satisfy the class invariant
+
+        // now remove a node
+        testList.removeNode("c");
+
+        String testArray1[] = {"a", "b", "d"};
+
+        DNode temp = testList.head;
+        for (int i = 0; i < testArray1.length; i++) { // Checks the order of nodes starting from the first node
+            assertEquals(testArray1[i], temp.contents);
+            temp = temp.next;
+        }
+        assertEquals(testArray1.length, testList.numNodes);
+    }
+
+    @Test
     public void testRemoveNodeAtEnd() {
         String[] items = {"a", "b", "c", "d"};
+        ArrayList<DNode> list = createList(items);
+        DNode head = list.get(0);
+
+        DLSList testList = new DLSList();
+        testList.head = head;
+        testList.numNodes = items.length;
+        testList.lastVisited = testList.head; // Initialise testList to satisfy the class invariant
+
+        // now remove a node
+        testList.removeNode("d");
+
+        String testArray1[] = {"a", "b", "c"};
+
+        DNode temp = testList.head;
+        for (int i = 0; i < testArray1.length; i++) { // Checks the order of nodes starting from the first node
+            assertEquals(testArray1[i], temp.contents);
+            temp = temp.next;
+        }
+        assertEquals(testArray1.length, testList.numNodes);
+    }
+
+    @Test
+    public void testRemoveNodeMiddleAtEnd() {
+        String[] items = {"a", "b", "c", "d", "d"};
         ArrayList<DNode> list = createList(items);
         DNode head = list.get(0);
 
