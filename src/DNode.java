@@ -59,10 +59,13 @@ class DNode {
         // then: curr.next points to newNode, newNode.next points to N
 		// N.prev points to newNode and newNode.prev points to curr.
 		// If curr has no next neighbour, then newNode is inserted as the last node after curr.
-        newNode.next = curr.next;
-        newNode.prev = curr;
-        if (curr.next != null) curr.next.prev = newNode;
-        curr.next = newNode;
+		if (curr != null && newNode != null)
+			if (curr.contents != null && newNode.contents != null) {
+			newNode.next = curr.next;
+			newNode.prev = curr;
+			if (curr.next != null) curr.next.prev = newNode;
+			curr.next = newNode;
+		}
 	}
 	
 	void insertBefore(DNode curr, DNode newNode) { //TODO
