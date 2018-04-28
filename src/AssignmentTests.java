@@ -758,8 +758,15 @@ public class AssignmentTests {
 		SimpleBlockchain testBc= new SimpleBlockchain("hello");
 
 		testBc.addBlock("number two"); // assumes addBlock is correctly implemented
-
 		assertTrue(testBc.validate());
+
+		testBc.addBlock("number three"); // assumes addBlock is correctly implemented
+
+        testBc.lastNode.prev.contents = "different";
+		assertFalse(testBc.validate());
+
+        testBc.lastNode.contents = "different lasts";
+		assertFalse(testBc.validate());
 	}
 
 
