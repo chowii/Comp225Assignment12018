@@ -204,8 +204,10 @@ class BlockchainNode { // The basic BlockchainNode...
 
 class SimpleBlockchain {
 	// Class invariant: all nodes in the Blockchain satisfy "Blockchain Validity"
-	// i.e.  Blockchain Validity holds of all nodes (except the Genesis node):
-	// StringUtil.applySha256(this.blockNumber+ prev.currHash+this.contents == this.currHash)
+	// i.e.
+	// Blockchain Validity holds of all nodes (except the Genesis node):
+	// StringUtil.applySha256
+	// (this.blockNumber+ prev.currHash+this.contents == this.currHash)
 	// AND the Genesis node has been correctly initialised
 	BlockchainNode genesisNode; // Created by calling BlockchainNode (String s)
 	BlockchainNode lastNode;   // The last node in the Blockchain
@@ -219,14 +221,32 @@ class SimpleBlockchain {
 	void addBlock(String s) { //TODO
 		// Post: Creates a new valid block with contents s, and adds it
 		// to the current SimpleBlockchain so that the result satisfies the blockchain condition.
+		BlockchainNode a = new BlockchainNode(s, lastNode.currHash, lastNode.blockNumber + 1);
+		lastNode.next = a;
+		a.prev = lastNode;
+		lastNode = a;
+		System.out.println("addBlock-blockNumber: " + a.blockNumber + " :" + s);
 	}
 	
 	boolean validate () { //TODO
 		// Post: Returns true if the SimpleBlockchain is valid, i.e. satisfies the blockChain condition
 		// null SimplBlockchains are valid
-		return true;
-	}	
-	
+		BlockchainNode temp = genesisNode;
+		boolean validate = false;
+		if (temp.prev != null) {
+			String applySha256 = StringUtil.applySha256(temp.blockNumber + temp.prev.currHash + temp.contents);
+			validate = temp.currHash.equals(applySha256);
+		} else if (temp.prev == null) {
+			temp = temp.next;
+			String applySha256 = StringUtil.applySha256(temp.blockNumber + temp.prev.currHash + temp.contents);
+			validate = temp.currHash.equals(applySha256);
+		} else if (temp == null) {
+			validate = true;
+		}
+		System.out.println("validate-blockNumber: " + temp.blockNumber + ": " + temp.contents);
+		return validate;
+	}
+
 	SimpleBlockchain findTamperedNode() { //TODO
 		// Post: If validate returns false, returns the address of the first node which fails to validate
 		// If validate returns true, then returns null

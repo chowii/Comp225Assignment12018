@@ -728,6 +728,30 @@ public class AssignmentTests {
 		assertSame(testBc.genesisNode.next, testBc.lastNode);
 	}
 
+	@Test
+	public void testAddBlock2() {
+		SimpleBlockchain testBc= new SimpleBlockchain("hello");
+
+		testBc.addBlock("number two");
+
+		assertEquals("number two", testBc.lastNode.contents);
+		assertEquals(1, testBc.lastNode.blockNumber);
+		assertSame(testBc.genesisNode.next, testBc.lastNode);
+		assertSame(testBc.genesisNode, testBc.lastNode.prev);
+
+		testBc.addBlock("test three");
+		assertEquals("test three", testBc.lastNode.contents);
+
+		assertSame(testBc.genesisNode.next.next, testBc.lastNode);
+		assertSame(testBc.genesisNode.next.next.blockNumber, testBc.lastNode.blockNumber);
+
+		assertSame(testBc.genesisNode.next, testBc.lastNode.prev);
+		assertSame(testBc.genesisNode.next.blockNumber, testBc.lastNode.prev.blockNumber);
+
+		assertSame(testBc.genesisNode, testBc.lastNode.prev.prev);
+		assertSame(testBc.genesisNode.blockNumber, testBc.lastNode.prev.prev.blockNumber);
+	}
+
 
 	@Test
 	public void testValidate() {
