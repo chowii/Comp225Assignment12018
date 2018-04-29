@@ -170,6 +170,14 @@ class DLSList {
 	DNode visit(String key) { //TODO
 		// Post: Returns the address of the first node (in ascending order) whose contents equal key, and null if there is no such node;
 		// lastVisited is set to the address returned if it is not null, otherwise lastVisited remains unchanged
+		DNode traverse = head;
+		while (traverse != null) {
+			if (traverse.contents.equals(key)) {
+				lastVisited = traverse;
+				return traverse;
+			}
+			traverse = traverse.next;
+		}
 		return null;
 	}
 	

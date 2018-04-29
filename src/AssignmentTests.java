@@ -711,6 +711,121 @@ public class AssignmentTests {
 		assertSame(curr, testList.lastVisited);
 	}
 
+    @Test
+    public void testVisitFirstElement() {
+
+		String[] items = {"a","b","c","d"};
+		ArrayList<DNode> list = createList(items);
+		DNode head = list.get(0);
+
+		DLSList testList= new DLSList();
+		testList.head= head;
+		testList.numNodes= items.length;
+		testList.lastVisited= testList.head; // Initialise testList to satisfy the class invariant
+
+		DNode temp= testList.visit("a");
+		DNode curr= list.get(0);
+
+		assertSame(curr, temp);
+		assertSame(curr, testList.lastVisited);
+	}
+
+    @Test
+    public void testVisitLastElement() {
+
+		String[] items = {"a","b","c","d"};
+		ArrayList<DNode> list = createList(items);
+		DNode head = list.get(0);
+
+		DLSList testList= new DLSList();
+		testList.head= head;
+		testList.numNodes= items.length;
+		testList.lastVisited= testList.head; // Initialise testList to satisfy the class invariant
+
+		DNode temp= testList.visit("d");
+		DNode curr= list.get(items.length - 1);
+
+		assertSame(curr, temp);
+		assertSame(curr, testList.lastVisited);
+	}
+
+    @Test
+    public void testVisitUnknownElement() {
+
+		String[] items = {"a","b","c","d"};
+		ArrayList<DNode> list = createList(items);
+		DNode head = list.get(0);
+
+		DLSList testList= new DLSList();
+		testList.head= head;
+		testList.numNodes= items.length;
+		testList.lastVisited= null; // Initialise testList to satisfy the class invariant
+
+		DNode temp= testList.visit("e");
+		DNode curr= null;
+
+		assertSame(curr, temp);
+		assertSame(curr, testList.lastVisited);
+	}
+
+    @Test
+    public void testVisitFirstDoubleElement() {
+
+		String[] items = {"a","a","b","c","d"};
+		ArrayList<DNode> list = createList(items);
+		DNode head = list.get(0);
+
+		DLSList testList= new DLSList();
+		testList.head= head;
+		testList.numNodes= items.length;
+		testList.lastVisited= testList.head; // Initialise testList to satisfy the class invariant
+
+		DNode temp= testList.visit("a");
+		DNode curr= list.get(0);
+
+		assertSame(curr, temp);
+		assertSame(curr, testList.lastVisited);
+	}
+
+    @Test
+    public void testVisitMiddleDoubleElement() {
+
+		String[] items = {"a","b","c","c","d"};
+		ArrayList<DNode> list = createList(items);
+		DNode head = list.get(0);
+
+		DLSList testList= new DLSList();
+		testList.head= head;
+		testList.numNodes= items.length;
+		testList.lastVisited= testList.head; // Initialise testList to satisfy the class invariant
+
+		DNode temp= testList.visit("c");
+		DNode curr= list.get(2);
+
+		assertSame(curr, temp);
+		assertSame(curr, testList.lastVisited);
+	}
+
+    @Test
+    public void testVisitLastDoubleElement() {
+
+		String[] items = {"a","b","c","d","d"};
+		ArrayList<DNode> list = createList(items);
+		DNode head = list.get(0);
+
+		DLSList testList= new DLSList();
+		testList.head= head;
+		testList.numNodes= items.length;
+		testList.lastVisited= testList.head; // Initialise testList to satisfy the class invariant
+
+		DNode temp= testList.visit("d");
+		DNode curr= list.get(3);
+
+		assertSame(curr, temp);
+		assertSame(curr, testList.lastVisited);
+	}
+
+
 
 	// The following tests concern the class SimpleBlockchain
 
