@@ -767,7 +767,19 @@ public class AssignmentTests {
 
         testBc.lastNode.contents = "different lasts";
 		assertFalse(testBc.validate());
-	}
+
+		testBc.addBlock(null);
+        assertFalse(testBc.validate());
+
+        testBc.lastNode.currHash = "new hash";
+        assertFalse(testBc.validate());
+
+        testBc.lastNode.prev.currHash = "new hash";
+        assertFalse(testBc.validate());
+
+        testBc.lastNode.prev.blockNumber = 51;
+        assertFalse(testBc.validate());
+    }
 
 
 	@Test
@@ -780,6 +792,21 @@ public class AssignmentTests {
 
 		assertFalse(testBc.validate()); // No longer valid
 		assertSame(testBc.lastNode, testBc.findTamperedNode()); // Last node has been altered
+
+	}
+
+	@Test
+	public void findTamperedNode2() {
+		SimpleBlockchain testBc= new SimpleBlockchain("hello");
+
+		testBc.addBlock("number two");
+		testBc.addBlock("number three");
+		testBc.addBlock("number four");
+
+		testBc.genesisNode.next.contents= "something else"; // A simple attack: Change the block chain contents
+
+		assertFalse(testBc.validate()); // No longer valid
+		assertSame(testBc.genesisNode, testBc.findTamperedNode()); // Last node has been altered
 
 	}
 

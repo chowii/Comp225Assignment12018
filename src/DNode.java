@@ -206,8 +206,8 @@ class SimpleBlockchain {
 	// Class invariant: all nodes in the Blockchain satisfy "Blockchain Validity"
 	// i.e.
 	// Blockchain Validity holds of all nodes (except the Genesis node):
-	// StringUtil.applySha256
-	// (this.blockNumber+ prev.currHash+this.contents == this.currHash)
+	// StringUtil
+	// .applySha256(this.blockNumber+ prev.currHash+this.contents) == this.currHash
 	// AND the Genesis node has been correctly initialised
 	BlockchainNode genesisNode; // Created by calling BlockchainNode (String s)
 	BlockchainNode lastNode;   // The last node in the Blockchain
@@ -225,31 +225,27 @@ class SimpleBlockchain {
 		lastNode.next = a;
 		a.prev = lastNode;
 		lastNode = a;
-		System.out.println("addBlock-blockNumber: " + a.blockNumber + " :" + s);
-	}
-	
-	boolean validate () { //TODO
-		// Post: Returns true if the SimpleBlockchain is valid, i.e. satisfies the blockChain condition
-		// null SimplBlockchains are valid
-		BlockchainNode temp = genesisNode;
-		boolean validate = false;
-		if (temp.prev != null) {
-			String applySha256 = StringUtil.applySha256(temp.blockNumber + temp.prev.currHash + temp.contents);
-			validate = temp.currHash.equals(applySha256);
-		} else if (temp.prev == null) {
-			temp = temp.next;
-			String applySha256 = StringUtil.applySha256(temp.blockNumber + temp.prev.currHash + temp.contents);
-			validate = temp.currHash.equals(applySha256);
-		} else if (temp == null) {
-			validate = true;
-		}
-		System.out.println("validate-blockNumber: " + temp.blockNumber + ": " + temp.contents);
-		return validate;
 	}
 
-	SimpleBlockchain findTamperedNode() { //TODO
+	boolean validate() { //TODO
+		// Post: Returns true if the SimpleBlockchain is valid, i.e. satisfies the blockChain condition
+		// null SimplBlockchains are valid
+		return findTamperedNode() == null;
+	}
+
+	BlockchainNode findTamperedNode() { //TODO
 		// Post: If validate returns false, returns the address of the first node which fails to validate
 		// If validate returns true, then returns null
+		BlockchainNode temp = lastNode;
+		while (temp != null) {
+			String prevHash = temp.prev == null ? temp.currHash : temp.prev.currHash;
+			String applySha256 = StringUtil.applySha256(temp.blockNumber + prevHash + temp.contents);
+			boolean validate = temp.currHash.equals(applySha256);
+			if (!validate) {
+				return temp == lastNode ? temp : temp.prev;
+			}
+			temp = temp.prev;
+		}
 		return null;
 	}
 	
